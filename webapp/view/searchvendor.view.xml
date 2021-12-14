@@ -270,6 +270,7 @@
 											<IconTabBar expanded="true">
 												<items>
 													<IconTabFilter text="Notes" key="notes">
+														
 														<!--<Text text="Notes go here ..."/>-->
 														<VBox>
 															<Label text="Write a Note:"/>
