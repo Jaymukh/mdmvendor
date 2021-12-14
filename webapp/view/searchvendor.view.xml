@@ -1,0 +1,450 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" xmlns:tnt="sap.tnt" height="100%" xmlns:f="sap.f"
+	xmlns:form="sap.ui.layout.form" xmlns:l="sap.ui.layout" xmlns:smartFilterBar="sap.ui.comp.smartfilterbar"
+	xmlns:smartTable="sap.ui.comp.smarttable" xmlns:sv="sap.ui.comp.smartvariants" xmlns:uxap="sap.uxap"
+	xmlns:customData="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:vm="sap.ui.comp.variants" controllerName="murphy.mdm.vendor.murphymdmvendor.controller.searchvendor"
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<tnt:ToolPage id="toolPage">
+		<tnt:header>
+			<tnt:ToolHeader>
+				<Button id="sideNavigationToggleButton" icon="sap-icon://menu2" type="Transparent" press=".onSideNavButtonPress">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="NeverOverflow"/>
+					</layoutData>
+				</Button>
+				<ToolbarSpacer width="20px"/>
+				<Title id="idTitle" text="Search ERP Vendor">
+					<layoutData>
+						<OverflowToolbarLayoutData priority="Low"/>
+					</layoutData>
+				</Title>
+			</tnt:ToolHeader>
+		</tnt:header>
+		<tnt:sideContent>
+			<tnt:SideNavigation id="sideNavigation" selectedKey="srchVnd" itemSelect=".onSideItemSelect">
+				<tnt:NavigationList>
+					<tnt:NavigationListItem text="Search Vendor" icon="sap-icon://detail-view" key="srchVnd"/>
+					<tnt:NavigationListItem text="Create Vendor" icon="sap-icon://create" key="crtVnd"/>
+					<tnt:NavigationListItem text="Change" icon="sap-icon://request" key="myReq">
+						<tnt:NavigationListItem text="My Chnage Request" key="myReq"/>
+						<tnt:NavigationListItem text="All Change Request" key="allReq"/>
+					</tnt:NavigationListItem>
+					<tnt:NavigationListItem text="Mass Change" icon="sap-icon://copy" key="copy"/>
+				</tnt:NavigationList>
+				<tnt:fixedItem>
+					<tnt:NavigationList>
+						<tnt:NavigationListItem text="Lock Menu" icon="sap-icon://unlocked" key="unlock"/>
+					</tnt:NavigationList>
+				</tnt:fixedItem>
+			</tnt:SideNavigation>
+		</tnt:sideContent>
+		<tnt:mainContents>
+			<NavContainer id="pageContainer" initialPage="srchVnd">
+				<pages>
+					<!--<ScrollContainer id="srchVnd" horizontal="false" vertical="true" height="100%">-->
+					<!--<content>-->
+					<f:DynamicPage id="srchVnd" fitContent="true">
+						<f:title>
+							<f:DynamicPageTitle>
+								<f:heading>
+									<sv:SmartVariantManagement id="__SVM01" persistencyKey="fiori.test.application2.view.S4.FilterBar" showShare="true"
+										showExecuteOnSelection="true"/>
+								</f:heading>
+							</f:DynamicPageTitle>
+						</f:title>
+						<f:header>
+							<f:DynamicPageHeader>
+								<f:content>
+									<smartFilterBar:SmartFilterBar id="smartFilterBar" smartVariant="__SVM01" useToolbar="false"
+										persistencyKey="fiori.test.application2.view.S4.FilterBar" enableBasicSearch="true" basicSearchFieldName="Name1">
+										<smartFilterBar:controlConfiguration>
+											<smartFilterBar:ControlConfiguration key="MyOwnFilterField" index="1" label="Custom Filter Field" groupId="_BASIC" width="300px"
+												mandatory="mandatory" visibleInAdvancedArea="true">
+												<smartFilterBar:customControl>
+													<Select>
+														<core:Item key="1" text="ONE"/>
+														<core:Item key="2" text="TWO"/>
+														<core:Item key="3" text="THREE"/>
+													</Select>
+												</smartFilterBar:customControl>
+											</smartFilterBar:ControlConfiguration>
+										</smartFilterBar:controlConfiguration>
+										<smartFilterBar:layoutData>
+											<FlexItemData shrinkFactor="0"/>
+										</smartFilterBar:layoutData>
+									</smartFilterBar:SmartFilterBar>
+								</f:content>
+							</f:DynamicPageHeader>
+						</f:header>
+						<f:content>
+							<!--<smartTable:SmartTable id="smartTable" smartVariant="__SVM01" persistencyKey="fiori.test.application2.view.S4.SmartTable"-->
+							<!--	entitySet="LineItemsSet" smartFilterId="smartFilterBar" tableType="Table" useExportToExcel="true" useVariantManagement="true"-->
+							<!--	useTablePersonalisation="true" header="Line Items" showRowCount="true">-->
+							<!--	<smartTable:layoutData>-->
+							<!--		<FlexItemData growFactor="1" baseSize="0%"/>-->
+							<!--	</smartTable:layoutData>-->
+							<!--</smartTable:SmartTable>-->
+						</f:content>
+					</f:DynamicPage>
+					<!--</content>-->
+					<!--</ScrollContainer>-->
+					<Page id="crtVnd" showHeader="false" showNavButton="false">
+						<content>
+							<Toolbar>
+								<Title text="Organization: BP9422, (no description available)" level="H2"></Title>
+							</Toolbar>
+							<Page id="sideContentContainer" showHeader="false" showNavButton="false" showFooter="true">
+								<content>
+									<l:DynamicSideContent id="DynamicSideContent" class="sapUiDSCExplored sapUiContentPadding" containerQuery="true"
+										sideContentFallDown="BelowM" breakpointChanged="handleBreakpointChangeEvent">
+										<VBox>
+											<form:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Create New Vendor" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+												singleContainerFullSize="false">
+												<form:content>
+													<core:Title text="General Data"/>
+													<Label text="New Vendor ID"/>
+													<Input id="vndrID"/>
+													<Label text="Description" required="true"/>
+													<TextArea></TextArea>
+													<Label text="Priority"/>
+													<Select id="priority">
+														<items>
+															<core:Item text="Low" key="low"/>
+															<core:Item text="Medium" key="medium"/>
+															<core:Item text="High" key="high"/>
+														</items>
+													</Select>
+													<Label text="Due Date"/>
+													<DatePicker></DatePicker>
+													<core:Title text="Process Data"/>
+													<Label text="Status"/>
+													<Input value=""/>
+													<Label text="Current Work Item"/>
+													<Input value=""/>
+													<Label text="Created By"/>
+													<Input value=""/>
+													<Label text="Date/Time of Creation"/>
+													<Input value=""/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+												</form:content>
+											</form:SimpleForm>
+											<form:SimpleForm editable="true" layout="ResponsiveGridLayout" title="ERP Vendor Details" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+												singleContainerFullSize="false">
+												<form:content>
+													<core:Title text="Administritative Data"/>
+													<Label text="Vendor"/>
+													<Input/>
+													<Label text="Account Group"/>
+													<Input/>
+													<core:Title text="Address"/>
+													<Label text="Street / No." required="true"/>
+													<Input value=""/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Label text="Strret 2" required="true"/>
+													<Input value=""/>
+													<Label text="Postal Code / City"/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Input value=""/>
+													<Label text="Country" required="true"/>
+													<Input value=""/>
+													<Label text="Language" required="true"/>
+													<Input value=""/>
+													<core:Title text="General Data"/>
+													<Label text="Company Name" required="true"/>
+													<Input value=""/>
+													<Label text="Contract First Name"/>
+													<Input value=""/>
+													<Label text="Contract Last Name"/>
+													<Input value=""/>
+													<Label text="Other Search Value" required="true"/>
+													<Input value=""/>
+													<core:Title text="Communication Data"/>
+													<Label text="Telephone"/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Input value="" placeholder="Phone">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Input value="" placeholder="Ext"/>
+													<Label text="Mobile" required="true"/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Input value="" placeholder="Phone">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Label text="E-mail Address"/>
+													<Input value=""/>
+													<Label text="Web site"/>
+													<Input value=""/>
+													<Label text="Select Delivery Service" required="true"/>
+													<Input value=""/>
+												</form:content>
+											</form:SimpleForm>
+											<form:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Tax Information" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+												singleContainerFullSize="false">
+												<form:content>
+													<core:Title text="Address"/>
+													<Label text="Name" required="true"/>
+													<Input/>
+													<Label text="Postal Code / City"/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Input value=""/>
+													<Label text="Street / No."/>
+													<Input value=""/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<core:Title text="Insurance and Tax"/>
+													<Label text="Purchase Order"/>
+													<Input value=""/>
+													<Label text="Valid From Date/Time"/>
+													<DatePicker></DatePicker>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+												</form:content>
+											</form:SimpleForm>
+											<form:SimpleForm editable="true" layout="ResponsiveGridLayout" title="Payment Transactions" labelSpanXL="4" labelSpanL="4" labelSpanM="4"
+												labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0" emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2"
+												singleContainerFullSize="false">
+												<form:content>
+													<core:Title text="Payment Info"/>
+													<Label text="Name" required="true"/>
+													<Input/>
+													<Label text="Street / No."/>
+													<Input value=""/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Label text="Postal Code / City"/>
+													<Input value="">
+														<layoutData>
+															<l:GridData span="XL2 L1 M3 S4"/>
+														</layoutData>
+													</Input>
+													<Input value=""/>
+													<core:Title text="Alternate Payee"/>
+													<Label text="Account Group"/>
+													<Input value=""/>
+													<Label text="ID"/>
+													<Input value=""/>
+												</form:content>
+											</form:SimpleForm>
+										</VBox>
+										<l:sideContent>
+											<IconTabBar expanded="true">
+												<items>
+													<IconTabFilter text="Notes" key="notes">
+														<!--<Text text="Notes go here ..."/>-->
+														<VBox>
+															<Label text="Write a Note:"/>
+															<TextArea width="100%"></TextArea>
+															<Toolbar>
+																<ToolbarSpacer/>
+																<Button text="Add"/>
+															</Toolbar>
+														</VBox>
+													</IconTabFilter>
+													<IconTabFilter text="Attachments" key="attachments">
+														<!--<Text text="Attachments go here ..."/>-->
+														<UploadCollection id="UploadCollection" maximumFilenameLength="55" maximumFileSize="10" multiple="true" sameFilenameAllowed="true"
+															instantUpload="false" noDataDescription="Drop files or use the &quot;Add&quot; button to keep files ready for upload" change="onChange"
+															fileDeleted="onFileDeleted" filenameLengthExceed="onFilenameLengthExceed" fileSizeExceed="onFileSizeExceed" typeMissmatch="onTypeMissmatch"
+															uploadComplete="onUploadComplete" beforeUploadStarts="onBeforeUploadStarts"/>
+														<Toolbar>
+															<!--<Button text="Add"/>-->
+															<ToolbarSpacer/>
+															<Button text="Upload"/>
+														</Toolbar>
+													</IconTabFilter>
+													<IconTabFilter text="Comments" key="comments">
+														<!--<VBox>-->
+														<Label text="Write a Comment:"/>
+														<HBox width="100%">
+															<Avatar initials="SD" displaySize="XS" backgroundColor="Green"/>
+															<TextArea width="164%"></TextArea>
+														</HBox>
+														<Toolbar>
+															<ToolbarSpacer/>
+															<Button text="Add"/>
+														</Toolbar>
+														<!--</VBox>-->
+														<List headerText="Added Comments" items="{/Comments}">
+															<FeedListItem sender="{Author}" icon="{AuthorPicUrl}" senderPress="onPress" iconPress="onPress" iconDensityAware="false" info="{Type}"
+																timestamp="{Date}" text="{Text}" convertLinksToAnchorTags="All" actions="{path: 'Actions', templateShareable: false}">
+																<FeedListItemAction text="{Text}" icon="{Icon}" key="{Key}" press="onActionPressed"/>
+															</FeedListItem>
+														</List>
+													</IconTabFilter>
+												</items>
+											</IconTabBar>
+										</l:sideContent>
+									</l:DynamicSideContent>
+								</content>
+								<!--<footer>-->
+								<!--	<Toolbar><ToolbarSpacer/>-->
+								<!--		<Button text="Save" type="Transparent" press="onSaveClick"/>-->
+								<!--		<Button text="Submit" type="Transparent" press="onSubmitClick"/>-->
+								<!--		<Button text="Check" type="Transparent" press="onCheckClick"/>-->
+								<!--		<Button icon="sap-icon://undo" type="Transparent" press="onUndoClick"/>-->
+								<!--		<Button icon="sap-icon://redo" type="Transparent" press="onRedoClick"/>-->
+								<!--	</Toolbar>-->
+								<!--</footer>-->
+							</Page>
+						</content>
+						<footer>
+							<Toolbar><ToolbarSpacer/>
+								<Button text="Save" type="Transparent" press="onSaveClick"/>
+								<Button text="Submit" type="Transparent" press="onSubmitClick"/>
+								<Button text="Check" type="Transparent" press="onCheckClick"/>
+								<Button icon="sap-icon://undo" type="Transparent" press="onUndoClick"/>
+								<Button icon="sap-icon://redo" type="Transparent" press="onRedoClick"/>
+							</Toolbar>
+						</footer>
+					</Page>
+					<!--</ScrollContainer>-->
+					<!--<ScrollContainer id="change" horizontal="false" vertical="true" height="100%">-->
+					<!--	<Text text="This is Change Page"/>-->
+					<!--</ScrollContainer>-->
+					<Page id="myReq" showHeader="false" showNavButton="false">
+						<content>
+							<IconTabBar id="changeRequestPage" expanded="true">
+								<items>
+									<IconTabFilter text="My Change Request" key="myReqIcon">
+										<uxap:ObjectPageLayout>
+											<uxap:headerTitle>
+												<uxap:ObjectPageDynamicHeaderTitle>
+													<!--<uxap:expandedHeading>-->
+													<!--	<Title text="My Change Request"/>-->
+													<!--</uxap:expandedHeading>-->
+													<uxap:snappedHeading>
+														<!--<FlexBox fitContainer="true" alignItems="Center">-->
+														<Toolbar>
+															<SearchField/>
+															<Button icon="sap-icon://filter" type="Transparent"></Button>
+															<Button icon="sap-icon://arrow-right" text="Side Menu"></Button>
+														</Toolbar>
+														<!--</FlexBox>-->
+													</uxap:snappedHeading>
+												</uxap:ObjectPageDynamicHeaderTitle>
+											</uxap:headerTitle>
+											<uxap:headerContent>
+												<!--<m:Title text="This example shows how to change the default behavior in order to be able to navigate to sections instead of subsections, using the Anchor Bar" titleStyle="H6"/>-->
+												<FlexBox>
+													<TileContent footer="Total Request">
+														<content>
+															<NumericContent value="123" valueColor="Neutral" press="onPressChngReqTile" icon="sap-icon://request"/>
+														</content>
+													</TileContent>
+													<TileContent footer="Pending">
+														<content>
+															<NumericContent value="32" valueColor="Critical" press="onPressChngReqTile" icon="sap-icon://pending"/>
+														</content>
+													</TileContent>
+													<TileContent footer="Rejected">
+														<content>
+															<NumericContent value="2" valueColor="Error" press="onPressChngReqTile" icon="sap-icon://decline"/>
+														</content>
+													</TileContent>
+													<TileContent footer="Rejected">
+														<content>
+															<NumericContent value="89" valueColor="Good" press="onPressChngReqTile" icon="sap-icon://accept"/>
+														</content>
+													</TileContent>
+												</FlexBox>
+												<!--<Toolbar>-->
+												<!--	<SearchField/>-->
+												<!--	<Button icon="sap-icon://filter"></Button>-->
+												<!--	<Button icon="sap-icon://arrow-right" text="Side Menu"></Button>-->
+												<!--</Toolbar>-->
+											</uxap:headerContent>
+											<uxap:sections>
+												<uxap:ObjectPageSection>
+													<uxap:ObjectPageSubSection>
+														<uxap:blocks>
+															<l:DynamicSideContent class="sapUiDSCExplored sapUiContentPadding" containerQuery="true" sideContentFallDown="BelowM"
+																breakpointChanged="handleBreakpointChangeEvent">
+																<VBox>
+																	<Label text="Request Table"/>
+																</VBox>
+																<l:sideContent>
+																	<IconTabBar expanded="true">
+																		<items>
+																			<IconTabFilter text="Workflow" key="workflow">
+																				<Label text="Workflow goes here..."/>
+																			</IconTabFilter>
+																			<IconTabFilter text="Change Documents" key="changeDoc">
+																				<Text text="Documents go here ..."/>
+																			</IconTabFilter>
+																			<IconTabFilter text="Attachments" key="attachments">
+																				<Text text="Attachments go here ..."/>
+																			</IconTabFilter>
+																			<IconTabFilter text="Comments" key="comments">
+																				<Label text="Comments go here..."/>
+																			</IconTabFilter>
+																		</items>
+																	</IconTabBar>
+																</l:sideContent>
+															</l:DynamicSideContent>
+														</uxap:blocks>
+													</uxap:ObjectPageSubSection>
+												</uxap:ObjectPageSection>
+											</uxap:sections>
+										</uxap:ObjectPageLayout>
+									</IconTabFilter>
+									<IconTabFilter text="All Change Request" key="allReqIcon">
+										<Text text="All Change Request go here ..."/>
+									</IconTabFilter>
+								</items>
+							</IconTabBar>
+						</content>
+					</Page>
+					<!--<ScrollContainer id="myReq" horizontal="false" vertical="true" height="100%">-->
+					<!--	<Text text="This is the My Request Page"/>-->
+					<!--</ScrollContainer>-->
+					<!--<ScrollContainer id="allReq" horizontal="false" vertical="true" height="100%">-->
+					<!--	<Text text="This is All Request Page"/>-->
+					<!--</ScrollContainer>-->
+					<ScrollContainer id="copy" horizontal="false" vertical="true" height="100%">
+						<Text text="This is copy Page"/>
+					</ScrollContainer>
+				</pages>
+			</NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>
